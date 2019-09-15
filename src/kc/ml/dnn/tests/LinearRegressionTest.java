@@ -35,15 +35,13 @@ public class LinearRegressionTest {
 
         // Builds network with three hidden layers
         Network network = new Network();
+        network.setSeed(1000);
         Layer i = new Layer(1);
         Layer h = new Layer(10);
         Layer h2 = new Layer(10);
         Layer h3 = new Layer(10);
         Layer o = new Layer(1);
         network.addLayers(i, h, h2, h3, o);
-
-        // Seeds random weight initialization
-        network.setSeed(1000);
 
         // Displays network state before training
         System.out.println("NETWORK:");
