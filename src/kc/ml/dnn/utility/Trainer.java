@@ -51,7 +51,10 @@ public class Trainer {
      * @param learningRate magnitude of weight adjustments
      */
     public static void train(Network aNetwork, double[][] inputsArray, double[][] targetsArray, double learningRate, double epochs) {
+        symbolicDerivatives.clear();
+        numericalGradient.clear();
         network = aNetwork;
+
         validateExamples(inputsArray, targetsArray);
         buildSymbolicDerivatives();
         System.out.println("EPOCH, LOSS");
@@ -136,8 +139,6 @@ public class Trainer {
             ProductSum fullDerivOfC_ab = derivsOfC.getOrDefault(ab, new ProductSum());
             fullDerivOfC_ab.appendProduct(A_bc);
             derivsOfC.putIfAbsent(ab, fullDerivOfC_ab);
-
-            symbolicDerivatives.put(C, derivsOfC); // TODO - investigate? why not putIfAbsent
         }
     }
 
