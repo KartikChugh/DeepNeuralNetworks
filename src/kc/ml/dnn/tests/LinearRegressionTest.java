@@ -1,8 +1,5 @@
 package kc.ml.dnn.tests;
 
-import kc.ml.dnn.network.Layer;
-import kc.ml.dnn.network.Network;
-import kc.ml.dnn.network.Neuron;
 import kc.ml.dnn.network.*;
 import kc.ml.dnn.utility.Trainer;
 
