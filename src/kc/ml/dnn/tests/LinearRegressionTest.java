@@ -34,10 +34,10 @@ public class LinearRegressionTest {
         // Builds network with three hidden layers
         Network network = new Network();
         network.setSeed(1000);
-        Layer i = new Layer(1);
-        Layer h = new Layer(10);
-        Layer h2 = new Layer(10);
-        Layer h3 = new Layer(10);
+        Layer i = new Layer(1, true);
+        Layer h = new Layer(10, true);
+        Layer h2 = new Layer(10, true);
+        Layer h3 = new Layer(10, true);
         Layer o = new Layer(1);
         network.addLayers(i, h, h2, h3, o);
 
@@ -54,7 +54,7 @@ public class LinearRegressionTest {
         // Trains network
         System.out.println();
         System.out.println("TRAINING:");
-        network.train(inputsArray, targetsArray, 0.0001, 120);
+        network.train(inputsArray, targetsArray, 0.0001, 250);
         System.out.println();
 
         // Display network state after training
@@ -68,7 +68,6 @@ public class LinearRegressionTest {
             System.out.println(Arrays.toString(network.predict(inputs)));
         }
 
-        System.out.println("SLOPE: " + Arrays.toString(network.predict(new double[]{1})));
         final double[] f0 = network.predict(new double[]{0});
         final double[] f1 = network.predict(new double[]{1});
         System.out.println("SLOPE: " + (f1[0]-f0[0]));

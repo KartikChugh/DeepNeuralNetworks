@@ -12,6 +12,7 @@ public class Neuron implements Component {
     private double activation = 0;
     private List<Connection> connections = new ArrayList<>();;
     private ActivationFunction activationFunction;
+    private boolean isBias = false;
 
     /**
      * Constructs neuron with specified activation function
@@ -19,6 +20,14 @@ public class Neuron implements Component {
      */
     Neuron(ActivationFunction activationFunction) {
         this.activationFunction = activationFunction;
+    }
+
+    Neuron(boolean isBias) {
+        this(ActivationFunction.IDENTITY);
+        if (isBias) {
+            this.isBias = true;
+            this.activation = 1;
+        }
     }
 
     @Override
@@ -47,6 +56,10 @@ public class Neuron implements Component {
 
     public void clear() {
         activation = 0;
+    }
+
+    public boolean isBias() {
+        return isBias;
     }
 
     public void addConnection(Connection connection) {

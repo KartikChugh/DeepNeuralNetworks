@@ -8,14 +8,28 @@ import java.util.List;
 public class Layer {
 
     private List<Neuron> neurons = new ArrayList<>();
+    private List<Neuron> neuronsAndBias = new ArrayList<>();
 
     public Layer(int neuronCount) {
-        this(neuronCount, ActivationFunction.IDENTITY);
+        this(neuronCount, false);
+    }
+
+    public Layer(int neuronCount, boolean addBias) {
+        this(neuronCount, ActivationFunction.IDENTITY, addBias);
     }
 
     public Layer(int neuronCount, ActivationFunction activationFunction) {
+        this(neuronCount, activationFunction, false);
+    }
+
+    public Layer(int neuronCount, ActivationFunction activationFunction, boolean addBias) {
         for (int i = 0; i < neuronCount; i++) {
-            neurons.add(new Neuron(activationFunction));
+            Neuron n = new Neuron(activationFunction);
+            neurons.add(n);
+            neuronsAndBias.add(n);
+        }
+        if (addBias) {
+            neuronsAndBias.add(new Neuron(true));
         }
     }
 
@@ -23,8 +37,12 @@ public class Layer {
         return neurons;
     }
 
-    public void fireNeurons() {
-        for (Neuron neuron : neurons) {
+    public List<Neuron> getNeuronsAndBias() {
+        return neuronsAndBias;
+    }
+
+    public void fireNeuronsAndBias() {
+        for (Neuron neuron : neuronsAndBias) {
             neuron.fireConnections();
         }
     }

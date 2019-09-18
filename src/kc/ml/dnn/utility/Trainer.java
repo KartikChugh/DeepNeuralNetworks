@@ -99,7 +99,7 @@ public class Trainer {
      */
     private static void buildSymbolicDerivatives() {
         for (Layer left : network.getLayers()) {
-            for (Neuron B : left.getNeurons()) {
+            for (Neuron B : left.getNeuronsAndBias()) {
                 for (Connection bc : B.getConnections()) {
                     Neuron C = bc.getNeuronForward();
                     buildSymbolicDerivative(C, bc, B);

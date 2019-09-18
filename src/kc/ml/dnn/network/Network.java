@@ -115,7 +115,7 @@ public class Network {
      * @param right succeeding layer, which will receive values
      */
     private void fullyConnectLayers(Layer left, Layer right) {
-        for (Neuron leftNeuron : left.getNeurons()) {
+        for (Neuron leftNeuron : left.getNeuronsAndBias()) {
             for (Neuron rightNeuron : right.getNeurons()) {
                 leftNeuron.addConnection(new Connection(rightNeuron, weightInitializer.nextGaussian() * 0.1));
             }
@@ -143,7 +143,7 @@ public class Network {
         setInputs(inputs);
         for (Layer layer : layers) {
             layer.activateNeurons();
-            layer.fireNeurons();
+            layer.fireNeuronsAndBias();
         }
         return getOutputs();
     }
@@ -180,7 +180,7 @@ public class Network {
             sb.append(layer).append("\n");
         }*/
         for (Layer layer : layers) {
-            for (Neuron neuron : layer.getNeurons()) {
+            for (Neuron neuron : layer.getNeuronsAndBias()) {
                 sb.append(neuron);
                 sb.append(" >>");
                 sb.append(neuron.getConnections());
