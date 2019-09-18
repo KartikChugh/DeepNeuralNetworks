@@ -104,6 +104,9 @@ public class Trainer {
                     Neuron C = bc.getNeuronForward();
                     buildSymbolicDerivative(C, bc, B);
                     if (symbolicDerivatives.containsKey(B)) chainDerivatives(C, bc, B);
+                    if (symbolicDerivatives.containsKey(B)) {
+                        chainDerivatives(C, bc, B);
+                    }
                 }
             }
         }
@@ -160,8 +163,8 @@ public class Trainer {
             double[] predictions = network.feedforward(inputs);
 
             // Perform gradient descent
-            double[] lossDerivatives = computeLossDerivatives(targets, predictions);
-            computeGradient(lossDerivatives);
+            double[] lossOutputDerivatives = computeLossOutputDerivatives(targets, predictions);
+            computeGradient(lossOutputDerivatives);
             adjustWeights(learningRate);
 
             // Clear network
@@ -175,12 +178,12 @@ public class Trainer {
      * @param predictions
      * @return
      */
-    private static double[] computeLossDerivatives(double[] targets, double[] predictions) {
-        double[] lossDerivatives = new double[targets.length];
+    private static double[] computeLossOutputDerivatives(double[] targets, double[] predictions) {
+        double[] lossOutputDerivatives = new double[targets.length];
         for (int i = 0; i < targets.length; i++) {
-            lossDerivatives[i] = 2*(predictions[i] - targets[i]);
+            lossOutputDerivatives[i] = 2*(predictions[i] - targets[i]);
         }
-        return lossDerivatives;
+        return lossOutputDerivatives;
     }
 
     /**
