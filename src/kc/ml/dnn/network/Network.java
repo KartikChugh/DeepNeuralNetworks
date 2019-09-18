@@ -115,9 +115,9 @@ public class Network {
      * @param right succeeding layer, which will receive values
      */
     private void fullyConnectLayers(Layer left, Layer right) {
-        for (Neuron leftNeuron : left.getNeuronsAndBias()) {
+        for (Neuron leftNeuronOrBias : left.getNeuronsAndBias()) {
             for (Neuron rightNeuron : right.getNeurons()) {
-                leftNeuron.addConnection(new Connection(rightNeuron, weightInitializer.nextGaussian() * 0.1));
+                leftNeuronOrBias.addConnection(new Connection(rightNeuron, weightInitializer.nextGaussian() * 0.1));
             }
         }
     }
@@ -180,10 +180,10 @@ public class Network {
             sb.append(layer).append("\n");
         }*/
         for (Layer layer : layers) {
-            for (Neuron neuron : layer.getNeuronsAndBias()) {
-                sb.append(neuron);
+            for (Neuron neuronOrBias : layer.getNeuronsAndBias()) {
+                sb.append(neuronOrBias);
                 sb.append(" >>");
-                sb.append(neuron.getConnections());
+                sb.append(neuronOrBias.getConnections());
                 sb.append("  ");
             }
             sb.append("\n");
