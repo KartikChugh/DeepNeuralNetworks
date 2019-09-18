@@ -103,7 +103,6 @@ public class Trainer {
                 for (Connection bc : B.getConnections()) {
                     Neuron C = bc.getNeuronForward();
                     buildSymbolicDerivative(C, bc, B);
-                    if (symbolicDerivatives.containsKey(B)) chainDerivatives(C, bc, B);
                     if (symbolicDerivatives.containsKey(B)) {
                         chainDerivatives(C, bc, B);
                     }
