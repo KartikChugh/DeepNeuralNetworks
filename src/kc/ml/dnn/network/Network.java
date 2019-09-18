@@ -127,7 +127,6 @@ public class Network {
      */
     public void clear() {
         for (Layer layer : layers) {
-            layer.clearNeurons();
             for (Neuron neuron : layer.getNeurons()) {
                 neuron.clear();
             }

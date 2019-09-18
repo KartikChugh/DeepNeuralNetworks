@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO better way of adding layers
 public class Layer {
 
     private List<Neuron> neurons = new ArrayList<>();
@@ -34,12 +35,6 @@ public class Layer {
     public void activateNeurons() {
         for (Neuron neuron : neurons) {
             neuron.activate();
-        }
-    }
-
-    public void clearNeurons() {
-        for (Neuron neuron : neurons) {
-            neuron.clear();
         }
     }
 
