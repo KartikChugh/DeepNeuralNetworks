@@ -15,16 +15,16 @@ public class LinearRegressionTest {
 
     // Define training data - model will fit inputs -> targets
     private static final double[][] inputsArray = {
-            {-1},
             {-10},
+            {-1},
             {2},
             {10},
             {20},
             {22},
     };
     private static final double[][] targetsArray = {
-            {-1},
             {11},
+            {-1},
             {21},
             {34},
             {41},
@@ -71,6 +71,10 @@ public class LinearRegressionTest {
         }
 
         System.out.println("SLOPE: " + Arrays.toString(network.predict(new double[]{1})));
+        final double[] f0 = network.predict(new double[]{0});
+        final double[] f1 = network.predict(new double[]{1});
+        System.out.println("SLOPE: " + (f1[0]-f0[0]));
+        System.out.println("y-intercept: " + f0[0]);
         System.out.println();
 
     }

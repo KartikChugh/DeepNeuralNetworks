@@ -128,6 +128,9 @@ public class Network {
     public void clear() {
         for (Layer layer : layers) {
             layer.clearNeurons();
+            for (Neuron neuron : layer.getNeurons()) {
+                neuron.clear();
+            }
         }
     }
 
@@ -182,6 +185,7 @@ public class Network {
                 sb.append(neuron);
                 sb.append(" >>");
                 sb.append(neuron.getConnections());
+                sb.append("  ");
             }
             sb.append("\n");
         }
