@@ -5,7 +5,7 @@ public enum ActivationFunction {
     IDENTITY {
         @Override
         public void apply(Neuron neuron) {
-            // Identity does nothing to value
+            return;
         }
     },
     RELU {
