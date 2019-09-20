@@ -4,24 +4,27 @@ public enum ActivationFunction {
 
     IDENTITY {
         @Override
-        public void apply(Neuron neuron) {
-            return;
+        public double function(double x) {
+            return x;
         }
     },
     RELU {
         @Override
-        public void apply(Neuron neuron) {
-            double value = neuron.getActivation();
-            neuron.setActivation(value < 0 ? -value : value);
+        public double function(double x) {
+            return x < 0 ? 0 : x;
         }
     },
     SIGMOID { // Derivative: f(x) (1-f(x))
         @Override
-        public void apply(Neuron neuron) {
-            double value = neuron.getActivation();
-            neuron.setActivation(1 / (1 + Math.exp(-value)));
+        public double function(double x) {
+            return 1 / (1 + Math.exp(-x));
         }
     };
 
-    public abstract void apply(Neuron neuron);
+    public void apply(Neuron neuron) {
+        neuron.setActivation(function(neuron.getActivation()));
+    }
+
+    abstract double function(double x);
+
 }
