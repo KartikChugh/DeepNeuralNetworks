@@ -17,7 +17,7 @@ public class Product {
     }
 
     public static Product joinComponents(Product product, Component... newComponents) {
-        List<Component> components = product.getComponents();
+        List<Component> components = new ArrayList<>(product.getComponents());
         components.addAll(Arrays.asList(newComponents));
         return new Product(components.toArray(new Component[0]));
     }
