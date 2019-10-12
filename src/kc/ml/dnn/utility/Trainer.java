@@ -164,7 +164,6 @@ public class Trainer {
             // Perform gradient descent
             double[] lossOutputDerivatives = computeLossOutputDerivatives(targets, predictions);
             computeGradient(lossOutputDerivatives);
-            adjustWeights(learningRate);
 
             // Clear network
             network.clear();
