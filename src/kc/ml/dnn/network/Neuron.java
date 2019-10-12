@@ -13,9 +13,10 @@ public class Neuron implements Symbolic {
 
     private Integer id = randomLabeler.nextInt(1000);
     private double activation = 0;
+    private double summation = 0;
     private List<Connection> connections = new ArrayList<>();;
     private ActivationFunction activationFunction;
-    private boolean isBias = false;
+    private boolean isBias = false; // TODO better bias implementation
 
     /**
      * Constructs neuron with specified activation function
@@ -49,20 +50,33 @@ public class Neuron implements Symbolic {
         this.activation = activation;
     }
 
-    public void changeActivation(double delta) {
-        activation += delta;
-    }
-
     public double getActivation() {
         return activation;
     }
 
+    public void changeSummation(double delta) {
+        summation += delta;
+    }
+
+    public void setSummation(double summation) {
+        this.summation = summation;
+    }
+
+    public double getSummation() {
+        return summation;
+    }
+
     public void clear() {
+        summation = 0;
         activation = 0;
     }
 
     public boolean isBias() {
         return isBias;
+    }
+
+    public ActivationFunction getActivationFunction() {
+        return activationFunction;
     }
 
     public void addConnection(Connection connection) {

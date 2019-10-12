@@ -28,7 +28,7 @@ public class Connection implements Symbolic {
      * @param activation
      */
     public void fire(double activation) {
-        neuronForward.changeActivation(activation * weight);  // add weighted left Neuron value to right Neuron
+        neuronForward.changeSummation(activation * weight);  // add weighted left Neuron value to right Neuron
     }
 
     public double getWeight() {
@@ -42,7 +42,7 @@ public class Connection implements Symbolic {
     // TODO improve
     @Override
     public String toString() {
-        final DecimalFormat df = new DecimalFormat("#.########");
-        return df.format(weight);
+        final DecimalFormat df = new DecimalFormat("#.###");//#####
+        return Integer.toHexString(hashCode()).substring(0,3) + ", " + df.format(weight);
     }
 }

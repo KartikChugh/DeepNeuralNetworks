@@ -73,7 +73,7 @@ public class Network {
     private void setInputs(double[] inputs) {
         List<Neuron> inputNeurons = getInputNeurons();
         for (int i = 0; i < inputs.length; i++) {
-            inputNeurons.get(i).setActivation(inputs[i]);
+            inputNeurons.get(i).setSummation(inputs[i]);
         }
     }
 
@@ -172,7 +172,7 @@ public class Network {
         Trainer.train(this, inputsArray, targetsArray, learningRate, epochs);
     }
 
-    // TODO improve
+    // TODO improve toString
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();

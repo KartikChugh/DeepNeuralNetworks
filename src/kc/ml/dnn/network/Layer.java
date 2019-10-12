@@ -58,7 +58,7 @@ public class Layer {
         }
     }
 
-    // FIXME outdated
+    // FIXME outdated toString
     @Override
     public String toString() {
         final DecimalFormat df = new DecimalFormat("#.###");

@@ -1,11 +1,9 @@
 package kc.ml.dnn.utility;
 
+import kc.ml.dnn.math.FunctionDerivative;
 import kc.ml.dnn.math.Product;
 import kc.ml.dnn.math.ProductSum;
-import kc.ml.dnn.network.Connection;
-import kc.ml.dnn.network.Layer;
-import kc.ml.dnn.network.Network;
-import kc.ml.dnn.network.Neuron;
+import kc.ml.dnn.network.*;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -26,7 +24,7 @@ public class Trainer {
      *
      * Each double is a partial derivative that helps determine how much to adjust its corresponding weight
      *
-     * C -> x, where dJ/dC -> x
+     * C -> x, where dJ/dC = x
      */
     private static Map<Connection, Double> numericalGradient = new HashMap<>();
 
@@ -117,8 +115,9 @@ public class Trainer {
      * C -> (bc -> B, ...), where d.C/d.bc = B
      */
     private static void buildSymbolicDerivative(Neuron C, Connection bc, Neuron B) {
+        FunctionDerivative derivOfActivationFunction = C.getActivationFunction().getDerivativeAt(C);
         Map<Connection, ProductSum> derivsOfC = symbolicDerivatives.getOrDefault(C, new HashMap<>());
-        derivsOfC.put(bc, new ProductSum(new Product(B))); // bc -> B
+        derivsOfC.put(bc, new ProductSum(new Product(B, derivOfActivationFunction))); // bc -> B
         symbolicDerivatives.putIfAbsent(C, derivsOfC); // register C if not done already
     }
 
@@ -135,7 +134,7 @@ public class Trainer {
         Map<Connection, ProductSum> derivsOfB = symbolicDerivatives.get(B);
         for (Connection ab : derivsOfB.keySet()) {
             Product A = derivsOfB.get(ab).getProducts().get(0);
-            Product A_bc = Product.joinComponents(A, bc);
+            Product A_bc = Product.joinComponents(A, bc, C.getActivationFunction().getDerivativeAt(C));
 
             Map<Connection, ProductSum> derivsOfC = symbolicDerivatives.get(C);
             ProductSum fullDerivOfC_ab = derivsOfC.getOrDefault(ab, new ProductSum());
@@ -183,7 +182,7 @@ public class Trainer {
     private static double[] computeLossOutputDerivatives(double[] targets, double[] predictions) {
         double[] lossOutputDerivatives = new double[targets.length];
         for (int i = 0; i < targets.length; i++) {
-            lossOutputDerivatives[i] = 2*(predictions[i] - targets[i]);
+            lossOutputDerivatives[i] = 2*(predictions[i] - targets[i]); // TODO can be refactored into method
         }
         return lossOutputDerivatives;
     }
