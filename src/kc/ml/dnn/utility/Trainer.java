@@ -169,6 +169,10 @@ public class Trainer {
             // Clear network
             network.clear();
         }
+
+        // Adjust weights and clean up
+        adjustWeights(learningRate);
+        numericalGradient.clear();
     }
 
     /**
@@ -219,7 +223,6 @@ public class Trainer {
             double delta = learningRate * -numericalGradient.get(c);
             c.changeWeight(delta);
         }
-        numericalGradient.clear();
     }
 
     /**
