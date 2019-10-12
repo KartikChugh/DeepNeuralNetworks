@@ -1,52 +1,50 @@
 package kc.ml.dnn.math;
 
-import kc.ml.dnn.network.Component;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Product {
 
-    private List<Component> components = new ArrayList<>();
+    private List<Symbolic> symbolics = new ArrayList<>();
 
-    public Product(Component... components) {
-        for (Component component : components) {
-            appendComponent(component);
+    public Product(Symbolic... symbolics) {
+        for (Symbolic symbolic : symbolics) {
+            appendComponent(symbolic);
         }
     }
 
-    public static Product joinComponents(Product product, Component... newComponents) {
-        List<Component> components = new ArrayList<>(product.getComponents());
-        components.addAll(Arrays.asList(newComponents));
-        return new Product(components.toArray(new Component[0]));
+    public static Product joinComponents(Product product, Symbolic... newSymbolics) {
+        List<Symbolic> symbolics = new ArrayList<>(product.getSymbolics());
+        symbolics.addAll(Arrays.asList(newSymbolics));
+        return new Product(symbolics.toArray(new Symbolic[0]));
     }
 
-    public List<Component> getComponents() {
-        return components;
+    public List<Symbolic> getSymbolics() {
+        return symbolics;
     }
 
-    public void appendComponent(Component component) {
-        components.add(component);
+    public void appendComponent(Symbolic symbolic) {
+        symbolics.add(symbolic);
     }
 
     public double multiply() {
 
-        if (components.isEmpty()) return 0;
+        if (symbolics.isEmpty()) return 0;
 
         double product = 1;
-        for (Component component : components) {
-            product *= component.getValue();
+        for (Symbolic symbolic : symbolics) {
+            product *= symbolic.evaluate();
         }
         return product;
     }
 
     @Override
     public String toString() {
-        return components.toString();
+        return symbolics.toString();
     }
 
     public Product copy() {
-        return new Product(components.toArray(new Component[0]));
+        return new Product(symbolics.toArray(new Symbolic[0]));
     }
 }

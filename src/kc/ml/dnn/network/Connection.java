@@ -1,8 +1,10 @@
 package kc.ml.dnn.network;
 
+import kc.ml.dnn.math.Symbolic;
+
 import java.text.DecimalFormat;
 
-public class Connection implements Component {
+public class Connection implements Symbolic {
 
     private Neuron neuronForward;
     private double weight;
@@ -13,7 +15,7 @@ public class Connection implements Component {
     }
 
     @Override
-    public double getValue() {
+    public double evaluate() {
         return getWeight();
     }
 

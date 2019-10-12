@@ -1,10 +1,12 @@
 package kc.ml.dnn.network;
 
+import kc.ml.dnn.math.Symbolic;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Neuron implements Component {
+public class Neuron implements Symbolic {
 
     private static Random randomLabeler = new Random(13); // TODO more elegant labeling
 
@@ -31,7 +33,7 @@ public class Neuron implements Component {
     }
 
     @Override
-    public double getValue() {
+    public double evaluate() {
         return getActivation();
     }
 
