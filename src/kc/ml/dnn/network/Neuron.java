@@ -1,5 +1,6 @@
 package kc.ml.dnn.network;
 
+import kc.ml.dnn.math.ActivationFunction;
 import kc.ml.dnn.math.Symbolic;
 
 import java.util.ArrayList;

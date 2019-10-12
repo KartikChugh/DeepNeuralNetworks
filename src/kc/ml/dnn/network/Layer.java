@@ -1,5 +1,7 @@
 package kc.ml.dnn.network;
 
+import kc.ml.dnn.math.ActivationFunction;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
