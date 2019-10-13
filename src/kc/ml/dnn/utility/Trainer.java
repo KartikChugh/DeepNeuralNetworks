@@ -182,7 +182,9 @@ public class Trainer {
     private static double[] computeLossOutputDerivatives(double[] targets, double[] predictions) {
         double[] lossOutputDerivatives = new double[targets.length];
         for (int i = 0; i < targets.length; i++) {
-            lossOutputDerivatives[i] = 2*(predictions[i] - targets[i]); // TODO can be refactored into method
+            double prediction = predictions[i];
+            double target = targets[i];
+            lossOutputDerivatives[i] = 2*deviation(prediction, target);
         }
         return lossOutputDerivatives;
     }
@@ -224,15 +226,25 @@ public class Trainer {
     }
 
     /**
-     * Computes square deviation of a prediction from a target
-     * This is the error pertaining to a single output neuron
+     * Computes deviation of a prediction from a target
      * @param target the ground truth value the network should fit to
      * @param prediction the value predicted by the network
-     * @return the prediction error
+     * @return the deviation
      */
-    private static double error(double target, double prediction) {
-        double difference = target - prediction;
-        return difference * difference;
+    private static double deviation(double prediction, double target) {
+        return prediction - target;
+    }
+
+    /**
+     * Computes square deviation of a prediction from a target
+     * This is the loss pertaining to a single output neuron
+     * @param target the ground truth value the network should fit to
+     * @param prediction the value predicted by the network
+     * @return the prediction loss
+     */
+    private static double squareDeviation(double prediction, double target) {
+        double deviation = deviation(prediction, target);
+        return deviation * deviation;
     }
 
     /**
@@ -247,7 +259,7 @@ public class Trainer {
         for (int j = 0; j < targets.length; j++) {
             double target = targets[j];
             double prediction = predictions[j];
-            exampleLoss += error(target, prediction);
+            exampleLoss += squareDeviation(prediction, target);
         }
         return exampleLoss;
     }
